@@ -6,7 +6,7 @@ const styles = {
   top: '20px',
   transform: 'translate(-50%)',
   padding: '20px 40px',
-  border: '10px solid hotpink',
+  border: '10px solid #fedd00',
   fontSize: '2.5em',
   color: 'white',
   // textTransform: 'uppercase',
