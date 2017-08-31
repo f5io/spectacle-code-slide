@@ -47,6 +47,11 @@ const style = {
   wordBreak: 'break-word'
 };
 
+const KeyCodes = {
+  LEFT_RIGHT: [ 37, 39 ],
+  UP_DOWN: [ 38, 40 ],
+};
+
 class CodeSlide extends React.Component {
   static propTypes = {
     lang: PropTypes.string.isRequired,
@@ -56,11 +61,13 @@ class CodeSlide extends React.Component {
       title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
       note: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
     })),
-    showLineNumbers: PropTypes.bool
+    showLineNumbers: PropTypes.bool,
+    useLeftRight: PropTypes.bool
   };
 
   static defaultProps = {
-    showLineNumbers: true
+    showLineNumbers: true,
+    useLeftRight: false,
   };
 
   static contextTypes = {
@@ -150,15 +157,17 @@ class CodeSlide extends React.Component {
 
     let prev = this.state.active;
     let active = null;
+    let [ prv, nxt ] = KeyCodes[this.props.useLeftRight ? 'LEFT_RIGHT' : 'UP_DOWN' ];
 
-    if (e.which === 38) {
+    if (e.which === prv) {
       active = prev - 1;
-    } else if (e.which === 40) {
+    } else if (e.which === nxt) {
       active = prev + 1;
     }
 
-    if (active !== null) {
+    if (active !== null && active >= 0 && active < this.props.ranges.length) {
       e.preventDefault();
+      e.stopPropagation();
       active = clamp(active, 0, this.props.ranges.length - 1);
       this.goTo(active);
     }
