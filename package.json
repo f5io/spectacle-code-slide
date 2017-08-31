@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
-    "prepublish": "npm run build"
-    "preprepare": "npm run build"
+    "prepublish": "npm run build",
+    "prepare": "npm run build"
   },
   "author": "James Kyle <me@thejameskyle.com>",
   "license": "MIT",
